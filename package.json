@@ -1,0 +1,16 @@
+{
+  "name": "Servidor",
+  "version": "1.0.0",
+  "description": "Nada",
+  "main": "App.js",
+  "author": "Ronald",
+  "license": "None",
+  "private": false,
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "node-key-sender": "^1.0.11"
+  }
+}
