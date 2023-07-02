@@ -18,8 +18,7 @@ const wss = new WebSocket.Server({server});
 
 wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
-        message = Buffer.from(message).toString();
-        ks.sendKey(message);
+        ks.sendCombination(JSON.parse(message).botones);
     });
 });
 

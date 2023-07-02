@@ -19,6 +19,14 @@
 				height: 50%;
 				width: 50%;
 			}
+			.listo-button, #atras-button, #pausa-button{
+				width: 50%;
+			    text-align: center;
+			    border-radius: 15px;
+			    border-width: 5px;
+			    margin: 20px;
+			    border-color: yellow;
+			}
 			.container {
 				display: flex;
 				flex-direction: column;
@@ -33,10 +41,18 @@
 				height: 100%;
 			}
 			.input-container div, .input-container button{
-				margin: 10vh;
+				margin: 5vh;
 				font-size: 1.2em;
 				display: flex;
 				flex-direction: column;
+			}
+			.input-container div{
+				font-size: 1.2em;
+			}
+			.input-container button{
+				width: 70%;
+				max-width: 250px;
+				font-size: 2.3vh;
 			}
 			input{
 				height: 5.6vh;
@@ -51,22 +67,12 @@
 			p{
 				user-select: none;
 			}
-
-			#listo-button, #atras-button, #pausa-button{
-				width: 50%;
-			    height: 10%;
-			    text-align: center;
-			    border-radius: 15px;
-			    border-width: 5px;
-			    margin: 20px;
-			    border-color: yellow;
-			}
 			.control-container{
 				height: 100vh;
 				flex-direction: column;
 			}
 			.button-container {
-				height: 60vh;
+				height: 40vh;
 				display: grid;
 				grid-template-columns: repeat(3, 1fr);
 				grid-gap: 10px;
@@ -111,16 +117,16 @@
 						placeholder="Ingrese el puerto" />	
 				</div>
 
-				<button id="listo-button" class="centered-flex" style="background-color: #12b325" onclick="goToArrowsView()">
+				<button class="listo-button centered-flex" style="background-color: #12b325" onclick="goToArrowsView(false)">
 					<p>SIMPLE</p>
 				</button>
 
-				<button id="listo-button" class="centered-flex" style="background-color: #12b325" onclick="goToArrowsView()">
+				<button class="listo-button centered-flex" style="background-color: #12b325" onclick="goToArrowsView(true)">
 					<p>AGREGANDO CTRL</p>
 				</button>
 			</div>
 			<div class="control-container centered-flex" style="display:none">
-				<div style="flex-grow: 1"></div>
+				<div style="flex-grow: 0.2"></div>
 				<div class="button-container">
 					<div></div>
 					<button onclick="executeButton('up')">
@@ -140,12 +146,12 @@
 					</button>
 					<div></div>
 				</div>
-				<div class="centered-flex" style="flex-grow: 3; flex-direction: column">
-					<button id="pausa-button" class="centered-flex" style="background-color: gray; color: white" onclick="executeButton('space')">
+				<div class="centered-flex" style="flex-grow: 5; flex-direction: column; padding-bottom: 20%;">
+					<button id="pausa-button" class="centered-flex" style="background-color: gray; color: white; height: 10%" onclick="executeButton('space')">
 						<p>PAUSA / PLAY</p>
 					</button>	
 
-					<button id="atras-button" class="centered-flex" style="background-color: red; color: white" onclick="returnToHome()">
+					<button id="atras-button" class="centered-flex" style="background-color: red; color: white;  height: 10%" onclick="returnToHome()">
 						<p>VOLVER</p>
 					</button>					
 				</div>
@@ -161,9 +167,9 @@
 			let inputContainer = document.getElementsByClassName("input-container")[0];
 			let controlContainer = document.getElementsByClassName("control-container")[0];
 
-			let socket;
+			let socket, agregarCtrl;
 
-			function goToArrowsView(){
+			function goToArrowsView(kind){
 				let ip = document.getElementById("ip_input").value;
 				let puerto = document.getElementById("puerto_input").value;
 
@@ -175,6 +181,7 @@
 					inputContainer.style.display = "none";
 
 					socket = new WebSocket('ws://' + ip + ':' + puerto);
+					agregarCtrl = kind;
 				}
 			}
 
@@ -184,7 +191,14 @@
 			}
 
 			function executeButton(action){
-				socket.send(action)
+				let message;
+				if (agregarCtrl){
+					message = {botones:['control', action]};
+				}
+				else {
+					message = {botones:[action]};
+				}
+				socket.send(JSON.stringify(message))
 			}
 		</script>
 	</body>
