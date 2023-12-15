@@ -9,7 +9,7 @@ const app = express();
 
 // Esto permite que nuestra página web se despliegue, para que así pueda ser
 // accedida desde varios dispositivos
-app.use(express.static('public'));
+app.use(express.static('public-RemoteControl'));
 
 // Esto es para poder utilizar el Web Socket. Creamos un servidor a partir del
 // que ya habíamos creado con Express, y ése es el que ponemos a la escucha.
