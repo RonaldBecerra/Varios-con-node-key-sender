@@ -68,7 +68,7 @@
 				user-select: none;
 			}
 			.control-container{
-				height: 100vh;
+				height: 85vh;
 				flex-direction: column;
 			}
 			.button-container {
@@ -76,6 +76,7 @@
 				display: grid;
 				grid-template-columns: repeat(3, 1fr);
 				grid-gap: 10px;
+				padding-top: 5%;
 			}
 			.button-container button {
 				width: 70px;
@@ -146,12 +147,12 @@
 					</button>
 					<div></div>
 				</div>
-				<div class="centered-flex" style="flex-grow: 5; flex-direction: column; padding-bottom: 20%;">
-					<button id="pausa-button" class="centered-flex" style="background-color: gray; color: white; height: 10%" onclick="executeButton('space')">
+				<div class="centered-flex" style="flex-grow: 5; flex-direction: column; padding-top: 20%;">
+					<button id="pausa-button" class="centered-flex" style="background-color: gray; color: white; height: 8%" onclick="executeButton('space')">
 						<p>PAUSA / PLAY</p>
 					</button>	
 
-					<button id="atras-button" class="centered-flex" style="background-color: red; color: white;  height: 10%" onclick="returnToHome()">
+					<button id="atras-button" class="centered-flex" style="background-color: red; color: white;  height: 8%" onclick="returnToHome()">
 						<p>VOLVER</p>
 					</button>					
 				</div>
