@@ -5,6 +5,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<title>Control remoto</title>
 		<style>
+			*{
+				color: white;
+			}
 			body{
 				background-color: #11009E;
 			}
@@ -14,78 +17,71 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				border-color: yellow;
+				border-width: 5px;
+				border-radius: 15px;
 			}
 			button img{
-				height: 50%;
-				width: 50%;
+				height: 100%;
+				width: 100%;
+				/* Para que no aparezca el menú de imagen cuando se pulsa prolongadamente sobre ella*/
+				pointer-events: none;
 			}
 			.listo-button, #atras-button, #pausa-button{
 				width: 50%;
+				margin: 20px;
 			    text-align: center;
-			    border-radius: 15px;
-			    border-width: 5px;
-			    margin: 20px;
-			    border-color: yellow;
 			}
-			.container {
+			#atras-button, #pausa-button{
+				height: 8%;
+			}
+			#input-container {
 				display: flex;
 				flex-direction: column;
-				align-items: center;
 				height: 100%;
 			}
-			.input-container {
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-				height: 100%;
-			}
-			.input-container div, .input-container button{
+			#input-container div, #input-container button{
 				margin: 5vh;
 				font-size: 1.2em;
 				display: flex;
 				flex-direction: column;
 			}
-			.input-container div{
-				font-size: 1.2em;
-			}
-			.input-container button{
+			#input-container button{
 				width: 70%;
 				max-width: 250px;
-				font-size: 2.3vh;
+				font-size: 2.5vh;
+				font-weight: bold;
+				background-color: #12b325;
+			}
+			label {
+				font-weight: bold;
 			}
 			input{
 				height: 5.6vh;
 				width: 70vw;
 				text-align: center;
 				font-size: 1em;
+				color: black;
 			}
-			label{
-				color: white;
-			}
-
 			p{
 				user-select: none;
 			}
-			.control-container{
+			#control-container{
 				height: 85vh;
 				flex-direction: column;
 			}
-			.button-container {
+			#direction-buttons-container {
 				height: 40vh;
 				display: grid;
 				grid-template-columns: repeat(3, 1fr);
 				grid-gap: 10px;
 				padding-top: 5%;
 			}
-			.button-container button {
+			#direction-buttons-container button {
 				width: 70px;
 				height: 70px;
 				color: yellow;
-				border-color: yellow;
-				border-width: 5px;
-				border-radius: 15px;
-				background-color: orange;
+				background-color: lightgrey;
 				font-size: 2em;
 				font-weight: bold;
 			}
@@ -97,10 +93,10 @@
 		</style>
 	</head>
 	<body>
-		<div class="container">
-			<div class="input-container">
+		<div class="centered-flex" style="height:100%">
+			<div id="input-container" class="centered-flex">
 				<div>
-					<label for="ip_input" style="font-weight:bold">IP local: </label>
+					<label for="ip_input">IP local: </label>
 					<input 
 						id="ip_input" 
 						type="text" 
@@ -109,7 +105,7 @@
 				</div>
 
 				<div>
-					<label for="puerto_input" style="font-weight:bold">Puerto: </label>
+					<label for="puerto_input">Puerto: </label>
 					<input 
 						id="puerto_input"
 						type="text"
@@ -117,17 +113,17 @@
 						placeholder="Ingrese el puerto" />	
 				</div>
 
-				<button class="listo-button centered-flex" style="background-color: #12b325" onclick="goToArrowsView(false)">
+				<button class="listo-button" onclick="goToArrowsView(false)">
 					<p>SIMPLE</p>
 				</button>
 
-				<button class="listo-button centered-flex" style="background-color: #12b325" onclick="goToArrowsView(true)">
+				<button class="listo-button" onclick="goToArrowsView(true)">
 					<p>AGREGANDO CTRL</p>
 				</button>
 			</div>
-			<div class="control-container centered-flex" style="display:none">
+			<div id="control-container" class="centered-flex" style="display:none">
 				<div style="flex-grow: 0.2"></div>
-				<div class="button-container">
+				<div id="direction-buttons-container">
 					<div></div>
 					<button onclick="executeButton('up')">
 						<img src="img/arrow.png" style="transform: rotate(90deg)" alt="arrow up">
@@ -147,11 +143,11 @@
 					<div></div>
 				</div>
 				<div class="centered-flex" style="flex-grow: 5; flex-direction: column; padding-top: 20%;">
-					<button id="pausa-button" class="centered-flex" style="background-color: gray; color: white; height: 8%" onclick="executeButton('space')">
-						<p>PAUSA / PLAY</p>
+					<button id="pausa-button" style="background-color: gray" onclick="executeButton('space')">
+						<p>PLAY / PAUSA</p>
 					</button>	
 
-					<button id="atras-button" class="centered-flex" style="background-color: red; color: white;  height: 8%" onclick="returnToHome()">
+					<button id="atras-button" style="background-color: red" onclick="returnToHome()">
 						<p>VOLVER</p>
 					</button>					
 				</div>
@@ -164,8 +160,8 @@
 			document.getElementById("ip_input").value = window.location.href.split("//")[1].split(":")[0];
 			document.getElementById("puerto_input").value = window.location.href.split("//")[1].split(":")[1].split("/")[0];
 
-			let inputContainer = document.getElementsByClassName("input-container")[0];
-			let controlContainer = document.getElementsByClassName("control-container")[0];
+			let inputContainer = document.getElementById("input-container");
+			let controlContainer = document.getElementById("control-container");
 
 			let socket, agregarCtrl;
 
