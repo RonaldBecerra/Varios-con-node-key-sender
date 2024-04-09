@@ -89,7 +89,6 @@
 				font-size: 2em;
 				font-weight: bold;
 			}
-
 			.centered-flex{
 				display: flex;
 				justify-content: center;
@@ -193,11 +192,11 @@
 
 			function executeButton(action){
 				let message;
-				if (agregarCtrl){
-					message = {botones:['control', action]};
-				}
-				else {
+				if (!agregarCtrl || (action==='space')){
 					message = {botones:[action]};
+				}
+				else {	
+					message = {botones:['control', action]};
 				}
 				socket.send(JSON.stringify(message))
 			}
