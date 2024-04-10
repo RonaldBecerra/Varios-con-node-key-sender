@@ -3,107 +3,8 @@
 	<head>
 		<meta charset=utf-8>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="style.css">
 		<title>Control remoto</title>
-		<style>
-			*{
-				color: white;
-			}
-			body{
-				background-color: #11009E;
-			}
-			button{
-				user-select: none;
-				cursor: pointer;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				border-color: yellow;
-				border-width: 5px;
-				border-radius: 15px;
-			}
-			button img{
-				height: 100%;
-				width: 100%;
-				/* Para que no aparezca el menú de imagen cuando se pulsa prolongadamente sobre ella*/
-				pointer-events: none;
-			}
-			.listo-button, #atras-button, #pausa-button{
-				width: 50%;
-				margin: 20px;
-			    text-align: center;
-			}
-			#atras-button, #pausa-button{
-				height: 8%;
-			}
-			#subtitulos-button{
-				position: absolute;
-				height: 10vh;
-				min-width: 17vw;
-				max-width: 12vh;
-				margin-left: 70%;
-				margin-bottom: 60%;
-				background-color: orange;
-				border-width: 4px;
-				border-radius: 12px;
-				font-weight: bold;
-			}
-			#input-container {
-				display: flex;
-				flex-direction: column;
-				height: 100%;
-			}
-			#input-container div, #input-container button{
-				margin: 5vh;
-				font-size: 1.2em;
-				display: flex;
-				flex-direction: column;
-			}
-			#input-container button{
-				width: 70%;
-				max-width: 250px;
-				font-size: 2.5vh;
-				font-weight: bold;
-				background-color: #12b325;
-			}
-			label {
-				font-weight: bold;
-			}
-			input{
-				height: 5.6vh;
-				width: 70vw;
-				text-align: center;
-				font-size: 1em;
-				color: black;
-				border-radius: 11px;
-			}
-			p{
-				user-select: none;
-			}
-			#control-container{
-				height: 85vh;
-				flex-direction: column;
-			}
-			#direction-buttons-container {
-				height: 40vh;
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				grid-gap: 10px;
-				padding-top: 5%;
-			}
-			#direction-buttons-container button {
-				width: 70px;
-				height: 70px;
-				color: yellow;
-				background-color: lightgrey;
-				font-size: 2em;
-				font-weight: bold;
-			}
-			.centered-flex{
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-		</style>
 	</head>
 	<body>
 		<div class="centered-flex" style="height:100%">
@@ -170,49 +71,6 @@
 			</div>
 		</div>
 
-		<script type="text/javascript">
-			// Al comenzar, colocar por defecto la IP de la URL en el campo de IP
-			// y el puerto de la URL en el campo del puerto
-			document.getElementById("ip_input").value = window.location.href.split("//")[1].split(":")[0];
-			document.getElementById("puerto_input").value = window.location.href.split("//")[1].split(":")[1].split("/")[0];
-
-			let inputContainer = document.getElementById("input-container");
-			let controlContainer = document.getElementById("control-container");
-
-			let socket, agregarCtrl;
-
-			function goToArrowsView(kind){
-				let ip = document.getElementById("ip_input").value;
-				let puerto = document.getElementById("puerto_input").value;
-
-				if (ip=="" || puerto==""){
-					alert("Debe llenar todos los campos")
-				}
-				else{
-					controlContainer.style.display = "grid";
-					inputContainer.style.display = "none";
-
-					socket = new WebSocket('ws://' + ip + ':' + puerto);
-					agregarCtrl = kind;
-				}
-			}
-
-			function returnToHome(){
-				inputContainer.style.display = "flex";
-				controlContainer.style.display = "none";
-			}
-
-			function executeButton(action){
-				let message;
-				if (!agregarCtrl || (action==='space')){
-					message = {botones:[action]};
-				}
-				else {	
-					message = {botones:['control', action]};
-				}
-				socket.send(JSON.stringify(message))
-			}
-		</script>
+		<script type="text/javascript" src="functions.js"></script>
 	</body>
 </html>
-

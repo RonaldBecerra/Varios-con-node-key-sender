@@ -1,0 +1,98 @@
+*{
+	color: white;
+}
+body{
+	background-color: #11009E;
+}
+button{
+	user-select: none;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-color: yellow;
+	border-width: 5px;
+	border-radius: 15px;
+}
+button img{
+	height: 100%;
+	width: 100%;
+	/* Para que no aparezca el menú de imagen cuando se pulsa prolongadamente sobre ella*/
+	pointer-events: none;
+}
+.listo-button, #atras-button, #pausa-button{
+	width: 50%;
+	margin: 20px;
+    text-align: center;
+}
+#atras-button, #pausa-button{
+	height: 8%;
+}
+#subtitulos-button{
+	position: absolute;
+	height: 10vh;
+	min-width: 17vw;
+	max-width: 12vh;
+	margin-left: 70%;
+	margin-bottom: 60%;
+	background-color: orange;
+	border-width: 4px;
+	border-radius: 12px;
+	font-weight: bold;
+}
+#input-container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+#input-container div, #input-container button{
+	margin: 5vh;
+	font-size: 1.2em;
+	display: flex;
+	flex-direction: column;
+}
+#input-container button{
+	width: 70%;
+	max-width: 250px;
+	font-size: 2.5vh;
+	font-weight: bold;
+	background-color: #12b325;
+}
+label {
+	font-weight: bold;
+}
+input{
+	height: 5.6vh;
+	width: 70vw;
+	text-align: center;
+	font-size: 1em;
+	color: black;
+	border-radius: 11px;
+}
+p{
+	user-select: none;
+}
+#control-container{
+	height: 85vh;
+	flex-direction: column;
+}
+#direction-buttons-container {
+	height: 40vh;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 10px;
+	padding-top: 5%;
+}
+#direction-buttons-container button {
+	width: 70px;
+	height: 70px;
+	color: yellow;
+	background-color: lightgrey;
+	font-size: 2em;
+	font-weight: bold;
+}
+.centered-flex{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
