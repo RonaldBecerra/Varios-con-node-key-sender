@@ -65,10 +65,13 @@ function returnToHome(){
 function executeButton(action, longPress=false){
 	auxExecuteButton(action);
 
-	if (longPress && activeButton) {
+	if (longPress) {
 		intervalId = setInterval( 
-			() => auxExecuteButton(action), 
-			300 // Repetir cada 300ms
+			() => {
+				if (activeButton){
+					auxExecuteButton(action);
+				}
+			}, 300 // Repetir cada 300ms
 		); 
 	}
 }
